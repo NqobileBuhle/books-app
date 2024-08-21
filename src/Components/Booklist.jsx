@@ -51,12 +51,12 @@ const BookList = () => {
 
   return (
     <div className='w-[90%] mx-auto justify-center text-center'>
-      <h1>Book List</h1>
+      <h1 className='text-[30px] bg-gray-500'>BOOKLIST</h1>
       <Search term={search} searchKeyword={searchHandler}/>
       {/* {search.length < 1 } */}
-      <ul className='list-none text-[20px] flex flex-wrap text-white'>
+      <ul className='list-none text-[20px] flex flex-wrap text-white text-left'>
         {books.map((book) => (
-          <li className='bg-gray-500 p-2 m-2 w-[45%]' key={book.key}>
+          <li className='bg-gray-700 p-2 m-2 w-[45%]' key={book.key}>
           <i className='fa fa-book'></i>
           &nbsp;
           {book.title}

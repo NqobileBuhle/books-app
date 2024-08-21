@@ -8,7 +8,7 @@ const Search = ({term,searchKeyword}) => {
   return (
     <>
 
-      <input 
+      <input className='p-2 outline-none  border-b-2 border-black text-[20px]'
       type="text"
       value={term}
       placeholder='Enter a book name'
