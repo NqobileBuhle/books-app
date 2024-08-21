@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import Search from './Search';
+import '../index.css';
 
 const BookList = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const[search,setSearch]=useState();
+  const[searchResults,setSearchResults]=useState([]);
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await fetch('https://openlibrary.org/search.json?q=harry+potter');
+        const response = await fetch('https://openlibrary.org/search.json?author=tolkien&sort=new');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
+        // console.log(data.result);
+
+        
         setBooks(data.docs);
       } catch (error) {
         setError(error.message);
@@ -23,16 +30,37 @@ const BookList = () => {
 
     fetchBooks();
   }, []);
+  const searchHandler=(search)=>{
+    setSearch(search);
+    if(search !==""){
+        const newBookList=books.filter((i)=>{
+            return Object.values(i)
+            .join(" ")
+            .toLowerCase()
+            .includes(search.toLowerCase())
+        }
+    )
+     setSearchResults(newBookList);  
+    }else{
+        setSearchResults(books)
+    }
+  }
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
+    <div className='w-[90%] mx-auto justify-center text-center'>
       <h1>Book List</h1>
-      <ul>
+      <Search term={search} searchKeyword={searchHandler}/>
+      {/* {search.length < 1 } */}
+      <ul className='list-none text-[20px] flex flex-wrap text-white'>
         {books.map((book) => (
-          <li key={book.key}>{book.title}</li>
+          <li className='bg-gray-500 p-2 m-2 w-[45%]' key={book.key}>
+          <i className='fa fa-book'></i>
+          &nbsp;
+          {book.title}
+          </li>
         ))}
       </ul>
     </div>
