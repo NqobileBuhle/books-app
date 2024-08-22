@@ -10,7 +10,7 @@ const Search = ({term,searchKeyword}) => {
 
       <input className='p-2 outline-none  border-b-2 border-black text-[20px]'
       type="text"
-      value={term}
+      value={term ||''}
       placeholder='Enter a book name'
       onChange={handleSearch}
       ></input>
