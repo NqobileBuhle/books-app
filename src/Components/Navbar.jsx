@@ -1,13 +1,33 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <div className='bg-red-500 p-5'>
-        <h1>NAVBAR</h1>
-         
-      
-    </div>
-  )
-}
+    <nav className='bg-gray-800 text-white p-4'>
+      <div className='container mx-auto flex justify-between items-center'>
+        <div className='flex items-center'>
+          <img src="/backG.jpg" alt="Logo" className='h-10 mr-2' />
+          <span className='text-[24px] font-bold'>
+            <Link to='/'>Books Lovers</Link>
+          </span>
+        </div>
+        <ul className='flex space-x-4'>
+          <li>
+            <Link to='/' className='hover:text-gray-400'>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to='/booklist' className='hover:text-gray-400'>
+              Book List
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
+};
 
-export default Navbar
+export default Navbar;
+
+

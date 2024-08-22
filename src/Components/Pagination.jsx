@@ -1,62 +1,59 @@
-import React, { useState } from 'react';
-import { cardsData } from './CardData';
-import Card from './Card';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
-const ITEMS_PER_PAGE = 6;
-
-const Pagination = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentItems = cardsData.slice(startIndex, endIndex);
-
-  const totalPages = Math.ceil(cardsData.length / ITEMS_PER_PAGE);
-
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-  };
-
-  const navigate = useNavigate();
-
-  const handleReadMoreClick = () => {
-    navigate('/label');
+const Pagination = ({ booksPerPage, totalBooks, paginate, currentPage, viewAll }) => {
+  const totalPages = Math.ceil(totalBooks / booksPerPage);
+  
+  const handlePageChange = (pageNumber) => {
+    paginate(pageNumber);
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="posts-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {currentItems.map((item, index) => (
-          <Card
-            key={index}
-            imageUrl={item.imageUrl}
-            title={item.title}
-            body={item.body}
-            onReadMoreClick={handleReadMoreClick}
-          />
-        ))}
+    <div className='flex flex-col items-center mt-4'>
+      <div className='text-white mb-4'>
+        <span className='text-lg'>
+          Page {currentPage} of {totalPages}
+        </span>
       </div>
-
-      <div className="mt-4 flex space-x-4">
+      <div className='flex items-center'>
         <button
-          disabled={currentPage === 1}
+          onClick={() => handlePageChange(1)}
+          className='px-4 py-2 text-white bg-gray-700 hover:bg-gray-600 rounded-l'
+        >
+          &laquo; First
+        </button>
+        <button
           onClick={() => handlePageChange(currentPage - 1)}
-          className="px-4 py-2 bg-gray-300 text-gray-700 rounded disabled:opacity-50"
+          className='px-4 py-2 text-white bg-gray-700 hover:bg-gray-600'
+          disabled={currentPage === 1}
         >
-          Previous
+          &lsaquo; Prev
         </button>
-        <span className="px-4 py-2">{currentPage}</span>
         <button
-          disabled={currentPage === totalPages}
           onClick={() => handlePageChange(currentPage + 1)}
-          className="px-4 py-2 bg-gray-300 text-gray-700 rounded disabled:opacity-50"
+          className='px-4 py-2 text-white bg-gray-700 hover:bg-gray-600'
+          disabled={currentPage === totalPages}
         >
-          Next
+          Next &rsaquo;
+        </button>
+        <button
+          onClick={() => handlePageChange(totalPages)}
+          className='px-4 py-2 text-white bg-gray-700 hover:bg-gray-600 rounded-r'
+          disabled={currentPage === totalPages}
+        >
+          Last &raquo;
         </button>
       </div>
+      <button
+        onClick={viewAll}
+        className='mt-4 px-4 py-2 text-white bg-blue-500 hover:bg-blue-400 rounded'
+      >
+        View All
+      </button>
     </div>
   );
 };
 
 export default Pagination;
+
+
+
