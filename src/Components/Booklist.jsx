@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Search from './Search';
-import BookItem from './BookItem';
-import Pagination from './Pagination';
+import Search from '../Components/Search';
+import BookItem from '../Components/BookItem';
+import Pagination from '../Components/Pagination';
+import Filter from '../Components/Filter';
 import '../index.css';
 
 const BookList = () => {
@@ -9,21 +10,21 @@ const BookList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState([]); // Initialized as an empty array
   const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage] = useState(10);
-  const [filters, setFilters] = useState({ author: '', genre: '' });
+  const [filters, setFilters] = useState({ author: '', genre: '', bookType: '' });
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await fetch('https://openlibrary.org/search.json?author=tolkien&sort=new');
+        const response = await fetch('https://openlibrary.org/search.json?q=the+lord+of+the+rings');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setBooks(data.docs);
-        setSearchResults(data.docs);
+        setBooks(data.docs || []); // Ensure it's an array
+        setSearchResults(data.docs || []); // Ensure it's an array
       } catch (error) {
         setError(error.message);
       } finally {
@@ -38,7 +39,8 @@ const BookList = () => {
     return bookList.filter((book) => {
       const matchesAuthor = filters.author === '' || (book.author_name && book.author_name.some(author => author.toLowerCase().includes(filters.author.toLowerCase())));
       const matchesGenre = filters.genre === '' || (book.subject && book.subject.some(subject => subject.toLowerCase().includes(filters.genre.toLowerCase())));
-      return matchesAuthor && matchesGenre;
+      const matchesBookType = filters.bookType === '' || (book.type && book.type.includes(filters.bookType.toLowerCase()));
+      return matchesAuthor && matchesGenre && matchesBookType;
     });
   };
 
@@ -65,9 +67,12 @@ const BookList = () => {
     setCurrentPage(1);
   };
 
+  // Ensure searchResults is an array before slicing
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
-  const currentBooks = searchResults.slice(indexOfFirstBook, indexOfLastBook);
+  const currentBooks = Array.isArray(searchResults)
+    ? searchResults.slice(indexOfFirstBook, indexOfLastBook)
+    : [];
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -80,9 +85,10 @@ const BookList = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className='w-[90%] mx-auto justify-center text-center'>
-      <h1 className='text-[30px] bg-gray-500 text-white'>BOOKLIST</h1>
-      <Search term={search} searchKeyword={searchHandler} />
+    <div className='w-[90%] mx-auto justify-center text-center mx-auto'>
+      
+      
+      <h1 className='text-[30px] bg-gray-800 text-white w-[25%] mx-auto mt-20'>BOOKLIST</h1>
       
       <div className='my-4'>
         <label className='mr-2 text-white'>Author:</label>
@@ -101,6 +107,7 @@ const BookList = () => {
           onChange={handleFilterChange}
           className='p-2 text-black'
         />
+        <Filter filters={filters} handleFilterChange={handleFilterChange} />
       </div>
       
       <ul className='list-none text-[20px] flex flex-wrap text-white text-left'>
@@ -108,6 +115,7 @@ const BookList = () => {
           <BookItem key={i} book={book} />
         ))}
       </ul>
+      <Search term={search} searchKeyword={searchHandler} />
       
       <Pagination
         booksPerPage={booksPerPage}
@@ -116,11 +124,17 @@ const BookList = () => {
         currentPage={currentPage}
         viewAll={viewAll}
       />
+      
     </div>
   );
 };
 
 export default BookList;
+
+
+
+
+
 
 
 

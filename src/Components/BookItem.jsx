@@ -5,7 +5,7 @@ const BookItem = ({ book }) => {
   // Default cover image if none is provided
   const coverImage = book.cover_i
     ? `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`
-    : '/default-cover.jpg';
+    : 'cover_image.jpg';
 
   return (
     <li className='bg-gray-700 p-2 m-2 w-[25%] text-white'>

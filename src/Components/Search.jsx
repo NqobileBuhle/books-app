@@ -9,8 +9,8 @@ const Search = ({ term, searchKeyword }) => {
     <div className='my-4'>
       <input
         type='text'
-        placeholder='Search books...'
-        className='p-2 w-full border border-gray-500 rounded'
+        placeholder='Search for a  book...'
+        className='p-2 w-[25] border border-gray-500 rounded'
         value={term}
         onChange={handleSearch}
       />

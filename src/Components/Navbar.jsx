@@ -8,10 +8,10 @@ const Navbar = () => {
         <div className='flex items-center'>
           <img src="/backG.jpg" alt="Logo" className='h-10 mr-2' />
           <span className='text-[24px] font-bold'>
-            <Link to='/'>Books Lovers</Link>
+            <Link to='/'>BookLovers</Link>
           </span>
         </div>
-        <ul className='flex space-x-4'>
+        <ul className='flex space-x-8'>
           <li>
             <Link to='/' className='hover:text-gray-400'>
               Home
@@ -19,7 +19,7 @@ const Navbar = () => {
           </li>
           <li>
             <Link to='/booklist' className='hover:text-gray-400'>
-              Book List
+              BookList
             </Link>
           </li>
         </ul>
