@@ -10,7 +10,7 @@ const BookList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState('');
-  const [searchResults, setSearchResults] = useState([]); // Initialized as an empty array
+  const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage] = useState(10);
   const [filters, setFilters] = useState({ author: '', genre: '', bookType: '' });
@@ -23,8 +23,8 @@ const BookList = () => {
           throw new Error('Network response was not ok');
         }
         const data = await response.json();
-        setBooks(data.docs || []); // Ensure it's an array
-        setSearchResults(data.docs || []); // Ensure it's an array
+        setBooks(data.docs || []);
+        setSearchResults(data.docs || []);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -48,10 +48,7 @@ const BookList = () => {
     setSearch(search);
     if (search !== '') {
       const newBookList = books.filter((i) =>
-        Object.values(i)
-          .join(' ')
-          .toLowerCase()
-          .includes(search.toLowerCase())
+        Object.values(i).join(' ').toLowerCase().includes(search.toLowerCase())
       );
       setSearchResults(applyFilters(newBookList));
     } else {
@@ -67,11 +64,10 @@ const BookList = () => {
     setCurrentPage(1);
   };
 
-  // Ensure searchResults is an array before slicing
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
   const currentBooks = Array.isArray(searchResults)
-    ? searchResults.slice(indexOfFirstBook, indexOfLastBook)
+    ? searchResults.slice(indexOfFirstBook, indexOfLastBook).slice(0, 6) // Display only 6 books
     : [];
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -85,11 +81,8 @@ const BookList = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className='w-[90%] mx-auto justify-center text-center mx-auto'>
-      
-      
+    <div className='w-[90%] mx-auto justify-center text-center '>
       <h1 className='text-[30px] bg-gray-800 text-white w-[25%] mx-auto mt-20'>BOOKLIST</h1>
-      
       <div className='my-4'>
         <label className='mr-2 text-white'>Author:</label>
         <input
@@ -109,14 +102,12 @@ const BookList = () => {
         />
         <Filter filters={filters} handleFilterChange={handleFilterChange} />
       </div>
-      
-      <ul className='list-none text-[20px] flex flex-wrap text-white text-left'>
+      <ul className='list-none text-[20px] flex flex-wrap text-white text-left '>
         {currentBooks.map((book, i) => (
           <BookItem key={i} book={book} />
         ))}
       </ul>
       <Search term={search} searchKeyword={searchHandler} />
-      
       <Pagination
         booksPerPage={booksPerPage}
         totalBooks={searchResults.length}
@@ -124,12 +115,12 @@ const BookList = () => {
         currentPage={currentPage}
         viewAll={viewAll}
       />
-      
     </div>
   );
 };
 
 export default BookList;
+
 
 
 

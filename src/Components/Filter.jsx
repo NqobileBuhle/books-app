@@ -10,7 +10,7 @@ const Filter = ({ filters, handleFilterChange }) => {
         onChange={handleFilterChange}
         className='p-2 text-black'
       >
-        <option value=''>All</option>
+        <option value=''>Filter</option>
         <option value='fiction'>Fiction</option>
         <option value='non-fiction'>Non-Fiction</option>
       </select>

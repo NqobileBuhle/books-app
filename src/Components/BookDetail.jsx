@@ -1,26 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-const BookItem = ({ book }) => {
-  // Construct the cover image URL
-  const coverImage = book.cover_i
-    ? `https://freetestapi.com/api/v1/books`
-    : `url('/cover.jpg')`; // Replace with your default image path
+const BookDetail = () => {
+  const { id } = useParams();
+  const [book, setBook] = useState(null);
+
+  useEffect(() => {
+    const fetchBookDetails = async () => {
+      try {
+        const response = await fetch(`https://openlibrary.org/works/${id}.json`);
+        const data = await response.json();
+        setBook(data);
+      } catch (error) {
+        console.error('Error fetching book details:', error);
+      }
+    };
+
+    fetchBookDetails();
+  }, [id]);
+
+  if (!book) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <li className="w-[45%] p-4 bg-gray-800 text-white rounded-lg shadow-md m-2">
-      <img 
-        src={coverImage} 
-        alt={book.title} 
-        className="w-[150px] h-[200px] object-cover mx-auto mb-4 rounded"
-      />
-      <h2 className="text-xl font-bold">{book.title}</h2>
-      <p className="text-sm">Author: {book.author_name ? book.author_name.join(', ') : 'Unknown'}</p>
-      <p className="text-sm">First Published: {book.first_publish_year || 'N/A'}</p>
-    </li>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-2">{book.title}</h1>
+      <p className="text-lg">Author: {book.authors?.map((author) => author.name).join(', ') || 'Unknown'}</p>
+      <p className="text-lg">First Published: {book.first_publish_year || 'N/A'}</p>
+      <p className="mt-4">{book.description || 'No description available.'}</p>
+    </div>
   );
 };
 
-export default BookItem;
+export default BookDetail;
+
 
 
 
