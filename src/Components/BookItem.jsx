@@ -7,8 +7,8 @@ const BookItem = ({ book }) => {
     : 'cover_image.jpg';
 
   return (
-    <li className='bg-gray-200 p-2 m-2 w-[25% ]text-black'>
-      <Link to={`/book/${book.key}`} className='flex flex-col items-center bg-white shadow-md rounded-lg p-4 w-64 h-80 mx-auto'>
+    <li className='grid grid-cols-2 md:grid-cols-3 gap-3 md:px-3'>
+      <Link to={`/book/${book.key}`} className='col-span-2 md:col-span-5 relative"'>
         <img src={coverImage} alt={book.title} className='flex justify-center items-center w-full h-3/4 overflow-hidden' />
         <h3 className='text-[0px] text-center'>{book.title}</h3>
       </Link>
