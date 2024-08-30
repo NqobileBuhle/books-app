@@ -37,9 +37,20 @@ const BookList = () => {
 
   const applyFilters = (bookList) => {
     return bookList.filter((book) => {
-      const matchesAuthor = filters.author === '' || (book.author_name && book.author_name.some(author => author.toLowerCase().includes(filters.author.toLowerCase())));
-      const matchesGenre = filters.genre === '' || (book.subject && book.subject.some(subject => subject.toLowerCase().includes(filters.genre.toLowerCase())));
-      const matchesBookType = filters.bookType === '' || (book.type && book.type.includes(filters.bookType.toLowerCase()));
+      const matchesAuthor =
+        filters.author === '' ||
+        (book.author_name &&
+          book.author_name.some((author) =>
+            author.toLowerCase().includes(filters.author.toLowerCase())
+          ));
+      const matchesGenre =
+        filters.genre === '' ||
+        (book.subject &&
+          book.subject.some((subject) =>
+            subject.toLowerCase().includes(filters.genre.toLowerCase())
+          ));
+      const matchesBookType =
+        filters.bookType === '' || (book.type && book.type.includes(filters.bookType.toLowerCase()));
       return matchesAuthor && matchesGenre && matchesBookType;
     });
   };
@@ -77,49 +88,65 @@ const BookList = () => {
     setCurrentPage(1);
   };
 
-  if (loading) return <div className='text-center text-[35px]'>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <div className='text-center text-4xl mt-20 text-gray-600'>Loading...</div>;
+  if (error) return <div className='text-center text-red-500 mt-20'>Error: {error}</div>;
 
   return (
-    <div className=' w-[45%] md:w-[90%] mx-auto justify-center text-center '>
-      <h1 className='text-[30px] bg-gray-800 text-white w-[25%] mx-auto mt-20'>BOOKLIST</h1>
-      <div className='my-4'>
-        <label className='mr-2 text-white'>Author:</label>
-        <input
-          type='text'
-          name='author'
-          value={filters.author}
-          onChange={handleFilterChange}
-          className='p-2 text-black'
+    <div
+      className='container mx-auto px-4 py-10 bg-cover bg-center min-h-screen'
+      style={{
+        backgroundImage: "url('/imageTwo.jpg')",
+      }}
+    >
+      {/* Overlay for better readability */}
+      <div className='bg-gray-500 bg-opacity-70 p-8 rounded-lg'>
+        <h1 className='text-4xl font-bold text-center bg-gray-800 text-white py-2 px-4 rounded-md mx-auto mb-10 w-fit'>
+          BOOKLIST
+        </h1>
+        <div className='flex flex-col md:flex-row md:justify-between items-center mb-8'>
+          <div className='flex flex-col md:flex-row items-center mb-4 md:mb-0'>
+            <label className='mr-2 text-white'>Author:</label>
+            <input
+              type='text'
+              name='author'
+              value={filters.author}
+              onChange={handleFilterChange}
+              className='p-2 text-black rounded-md border border-gray-300 mr-4'
+              placeholder='Search by author...'
+            />
+            <label className='mr-2 text-white'>Genre:</label>
+            <input
+              type='text'
+              name='genre'
+              value={filters.genre}
+              onChange={handleFilterChange}
+              className='p-2 text-black rounded-md border border-gray-300'
+              placeholder='Search by genre...'
+            />
+          </div>
+          <Filter filters={filters} handleFilterChange={handleFilterChange} />
+        </div>
+        <Search term={search} searchKeyword={searchHandler} />
+        <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10 w-1/2 mx-auto'>
+          {currentBooks.map((book, i) => (
+            <BookItem key={i} book={book} />
+          ))}
+        </ul>
+        <Pagination
+          booksPerPage={booksPerPage}
+          totalBooks={searchResults.length}
+          paginate={paginate}
+          currentPage={currentPage}
+          viewAll={viewAll}
         />
-        <label className='mr-2 ml-4 text-white'>Genre:</label>
-        <input
-          type='text'
-          name='genre'
-          value={filters.genre}
-          onChange={handleFilterChange}
-          className='p-2 text-black'
-        />
-        <Filter filters={filters} handleFilterChange={handleFilterChange} />
       </div>
-      <ul className='list-none text-[20px] flex flex-wrap text-white text-left '>
-        {currentBooks.map((book, i) => (
-          <BookItem key={i} book={book} />
-        ))}
-      </ul>
-      <Search term={search} searchKeyword={searchHandler} />
-      <Pagination
-        booksPerPage={booksPerPage}
-        totalBooks={searchResults.length}
-        paginate={paginate}
-        currentPage={currentPage}
-        viewAll={viewAll}
-      />
     </div>
   );
 };
 
 export default BookList;
+
+
 
 
 
