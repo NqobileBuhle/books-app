@@ -15,37 +15,37 @@ const Pagination = ({ booksPerPage, totalBooks, paginate, currentPage, viewAll }
         </span>
       </div>
       <div className='flex items-center'>
-        <button
+        {/* <button
           onClick={() => handlePageChange(1)}
           className='px-4 py-2 text-white bg-gray-700 hover:bg-gray-600 rounded-l'
         >
           &laquo; First
-        </button>
+        </button> */}
         <button
           onClick={() => handlePageChange(currentPage - 1)}
-          className='px-4 py-2 text-white bg-gray-700 hover:bg-gray-600'
+          className='px-4 py-2 text-white bg-gray-800 hover:bg-gray-600 mr-20'
           disabled={currentPage === 1}
         >
           &lsaquo; Prev
         </button>
         <button
           onClick={() => handlePageChange(currentPage + 1)}
-          className='px-4 py-2 text-white bg-gray-700 hover:bg-gray-600'
+          className='px-4 py-2 text-white bg-gray-800 hover:bg-gray-600 ml-20'
           disabled={currentPage === totalPages}
         >
           Next &rsaquo;
         </button>
-        <button
+        {/* <button
           onClick={() => handlePageChange(totalPages)}
           className='px-4 py-2 text-white bg-gray-700 hover:bg-gray-600 rounded-r'
           disabled={currentPage === totalPages}
         >
           Last &raquo;
-        </button>
+        </button> */}
       </div>
       <button
         onClick={viewAll}
-        className='mt-4 px-4 py-2 text-white bg-blue-500 hover:bg-blue-400 rounded'
+        className='mt-4 px-4 py-2 text-white bg-gray-800 hover:bg-gray-600 rounded'
       >
         View All
       </button>

@@ -81,7 +81,7 @@ const BookList = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className='w-[90%] mx-auto justify-center text-center '>
+    <div className=' w-[45%] md:w-[90%] mx-auto justify-center text-center '>
       <h1 className='text-[30px] bg-gray-800 text-white w-[25%] mx-auto mt-20'>BOOKLIST</h1>
       <div className='my-4'>
         <label className='mr-2 text-white'>Author:</label>
