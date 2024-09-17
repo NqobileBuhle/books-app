@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const BookItem = ({ book }) => {
   const coverImage = book.cover_i
     ? `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`
-    : 'cover_image.jpg';
+    : 'cover.jpg';
 
   return (
     <li className='grid grid-cols-3 md:grid-cols-2 gap-3 md:px-3'>

@@ -105,22 +105,22 @@ const BookList = () => {
         </h1>
         <div className='flex flex-col md:flex-row md:justify-between items-center mb-8'>
           <div className='flex flex-col md:flex-row items-center mb-4 md:mb-0'>
-            <label className='mr-2 text-white'>Author:</label>
+            <label className='mr-2 text-black'>Author:</label>
             <input
               type='text'
               name='author'
               value={filters.author}
               onChange={handleFilterChange}
-              className='p-2 text-black rounded-md border border-gray-300 mr-4'
+              className='p-2 text-black rounded-md border border-gray-500 mr-4'
               placeholder='Search by author...'
             />
-            <label className='mr-2 text-white'>Genre:</label>
+            <label className='mr-2 text-black'>Genre:</label>
             <input
               type='text'
               name='genre'
               value={filters.genre}
               onChange={handleFilterChange}
-              className='p-2 text-black rounded-md border border-gray-300'
+              className='p-2 text-black rounded-md border border-gray-500'
               placeholder='Search by genre...'
             />
           </div>

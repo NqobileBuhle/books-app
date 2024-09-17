@@ -2,7 +2,7 @@ import React from 'react';
 
 const Filter = ({ filters, handleFilterChange }) => {
   const bookTypes = [
-    { label: 'Filter', value: '' },
+    { label: 'ALL', value: '' },
     { label: 'Fiction', value: 'fiction' },
     { label: 'Non-Fiction', value: 'non-fiction' },
     { label: 'Fantasy', value: 'fantasy' },
