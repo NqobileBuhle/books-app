@@ -22,6 +22,11 @@ const Navbar = () => {
               BookList
             </Link>
           </li>
+          <li>
+            <Link to='/about' className='hover:text-gray-400'>
+              About
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>
@@ -29,5 +34,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-

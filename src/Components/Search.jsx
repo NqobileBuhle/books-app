@@ -4,6 +4,7 @@ const Search = ({ term, searchKeyword }) => {
   const handleSearch = (e) => {
     searchKeyword(e.target.value);
   };
+  
 
   return (
     <div className='my-4'>

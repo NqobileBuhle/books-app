@@ -99,9 +99,9 @@ const BookList = () => {
       }}
     >
       {/* Overlay for better readability */}
-      <div className='bg-gray-500 bg-opacity-70 p-8 rounded-lg'>
+      <div className=' bg-gray-500 bg-opacity-70 p-8 rounded-lg'>
         <h1 className='text-4xl font-bold text-center bg-gray-800 text-white py-2 px-4 rounded-md mx-auto mb-10 w-fit'>
-          BOOKLIST
+          WHAT TO READ TODAY?
         </h1>
         <div className='flex flex-col md:flex-row md:justify-between items-center mb-8'>
           <div className='flex flex-col md:flex-row items-center mb-4 md:mb-0'>

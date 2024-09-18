@@ -5,6 +5,7 @@ import BookList from './Components/BookList';
 import BookDetail from './Components/BookDetail';
 import Navbar from './Components/Navbar';
 import Footer from './Components/Footer';
+import About from './Components/About';
 import './index.css';
 
 const App = () => {
@@ -15,7 +16,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
            <Route path="/booklist" element={<BookList />} />
-        <Route path="/book/:id" element={<BookDetail />} />
+           <Route path="/book/:id" element={<BookDetail />} />
+        <Route path="/about" element={<About />} />
         </Routes>
       </div>
       <Footer />
